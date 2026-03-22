@@ -1,3 +1,4 @@
+from contextlib import asynccontextmanager
 from datetime import datetime
 from uuid import uuid4
 
@@ -56,6 +57,12 @@ from app.schemas import (
 from app.security import create_access_token, get_password_hash, verify_password
 from app.services.moderation import moderate_message
 
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    Base.metadata.create_all(bind=engine)
+    yield
+
+
 app = FastAPI(
     title="Aliafrica Marketplace API",
     description=(
@@ -64,12 +71,8 @@ app = FastAPI(
         "live sales sessions, and auction support."
     ),
     version="0.1.0",
+    lifespan=lifespan,
 )
-
-
-@app.on_event("startup")
-def on_startup():
-    Base.metadata.create_all(bind=engine)
 
 
 @app.get("/")
