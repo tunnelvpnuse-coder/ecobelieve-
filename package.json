@@ -1,0 +1,15 @@
+{
+  "name": "aliafrica-marketplace",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Aliafrica multi-vendor marketplace starter implementation",
+  "workspaces": [
+    "apps/api"
+  ],
+  "scripts": {
+    "dev:api": "npm --workspace apps/api run dev",
+    "build": "npm --workspace apps/api run build",
+    "start:api": "npm --workspace apps/api run start",
+    "typecheck": "npm --workspace apps/api run typecheck"
+  }
+}

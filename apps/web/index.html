@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aliafrica Marketplace</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Aliafrica Multi-Vendor Marketplace</h1>
+      <p>
+        Connect global suppliers with African vendors, moderated B2B chat, and live
+        auction sales.
+      </p>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>1) Login</h2>
+        <div class="grid">
+          <label>
+            API Base URL
+            <input id="apiBaseUrl" value="http://localhost:4000/api" />
+          </label>
+          <label>
+            Email
+            <input id="email" value="vendor@aliafrica.com" />
+          </label>
+          <label>
+            Password
+            <input id="password" type="password" value="Vendor123!" />
+          </label>
+        </div>
+        <button id="loginButton">Login</button>
+        <pre id="authOutput">Not logged in.</pre>
+      </section>
+
+      <section class="card">
+        <h2>2) Product Discovery</h2>
+        <button id="loadProductsButton">Load Products</button>
+        <pre id="productsOutput"></pre>
+      </section>
+
+      <section class="card">
+        <h2>3) Supplier-Vendor Chat (AI Moderated)</h2>
+        <div class="grid">
+          <label>
+            Supplier ID
+            <input id="supplierIdInput" placeholder="Paste supplier user id" />
+          </label>
+          <label>
+            Vendor ID
+            <input id="vendorIdInput" placeholder="Paste vendor user id" />
+          </label>
+        </div>
+        <button id="createRoomButton">Create/Open Chat Room</button>
+        <label>
+          Room ID
+          <input id="roomIdInput" placeholder="room id" />
+        </label>
+        <label>
+          Message
+          <textarea id="chatMessageInput" rows="3">Bulk order for 500 units. Can you share FOB pricing?</textarea>
+        </label>
+        <button id="sendMessageButton">Send Message</button>
+        <button id="loadMessagesButton">Load Messages</button>
+        <pre id="chatOutput"></pre>
+      </section>
+
+      <section class="card">
+        <h2>4) Live Stream + Auction</h2>
+        <label>
+          Stream title
+          <input id="streamTitleInput" value="Weekend Gadget Flash Sale" />
+        </label>
+        <label>
+          Stream description
+          <textarea id="streamDescriptionInput" rows="3">Live showcase and auction of imported gadgets for East Africa.</textarea>
+        </label>
+        <button id="createStreamButton">Create Stream</button>
+        <label>
+          Stream ID
+          <input id="streamIdInput" placeholder="stream id" />
+        </label>
+        <button id="startStreamButton">Start Stream</button>
+        <div class="grid">
+          <label>
+            Product ID
+            <input id="auctionProductIdInput" placeholder="product id" />
+          </label>
+          <label>
+            Start Price
+            <input id="startPriceInput" type="number" value="20" />
+          </label>
+          <label>
+            Reserve Price
+            <input id="reservePriceInput" type="number" value="30" />
+          </label>
+        </div>
+        <button id="createAuctionButton">Create Auction</button>
+        <pre id="liveOutput"></pre>
+      </section>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
