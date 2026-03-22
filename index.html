@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OMNILIFE Super App Prototype</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>OMNILIFE</h1>
+      <p class="subtitle">Global Life Super App Prototype</p>
+    </div>
+    <button id="dataSaverToggle" class="chip">Data Saver: OFF</button>
+  </header>
+
+  <main class="layout">
+    <aside class="panel nav">
+      <h2>Modules</h2>
+      <ul>
+        <li><button class="nav-btn active" data-target="home">Home</button></li>
+        <li><button class="nav-btn" data-target="live">Live</button></li>
+        <li><button class="nav-btn" data-target="market">Marketplace</button></li>
+        <li><button class="nav-btn" data-target="wallet">Wallet</button></li>
+        <li><button class="nav-btn" data-target="learn">Learn</button></li>
+      </ul>
+      <h3>Global Support</h3>
+      <label for="language">Language</label>
+      <select id="language">
+        <option>English</option>
+        <option>Arabic</option>
+        <option>French</option>
+        <option>Mandarin</option>
+        <option>Spanish</option>
+        <option>Portuguese</option>
+        <option>Swahili</option>
+        <option>Hindi</option>
+      </select>
+      <label for="currency">Currency</label>
+      <select id="currency">
+        <option>USD</option>
+        <option>EUR</option>
+        <option>AED</option>
+        <option>INR</option>
+        <option>NGN</option>
+        <option>KES</option>
+      </select>
+    </aside>
+
+    <section class="panel content">
+      <article id="home" class="screen active">
+        <h2>Home Feed</h2>
+        <p>Discover global creators, short videos, and recommendations tuned by Mimi.</p>
+        <div class="grid">
+          <div class="card">
+            <h3>Morning Briefing</h3>
+            <p>Weather, mood check (opt-in), tasks, and stream recommendations.</p>
+          </div>
+          <div class="card">
+            <h3>End-of-Day Summary</h3>
+            <p>Earnings, follower growth, and suggested improvements.</p>
+          </div>
+        </div>
+      </article>
+
+      <article id="live" class="screen">
+        <h2>Livestream Studio</h2>
+        <p>Comments, reactions, gifts, follows, and in-stream product pins.</p>
+        <div class="grid">
+          <div class="card">
+            <h3>Animation Camera Mode</h3>
+            <p>Cel-shaded anime, CGI, comic-book, and minimal styles.</p>
+          </div>
+          <div class="card">
+            <h3>Anime Avatar System</h3>
+            <p>Create and customize neon anime avatars for live sessions.</p>
+          </div>
+          <div class="card">
+            <h3>Live Journey Mode</h3>
+            <p>3D avatar clone + GPS-rendered animated environments.</p>
+          </div>
+        </div>
+      </article>
+
+      <article id="market" class="screen">
+        <h2>Marketplace</h2>
+        <p>Physical goods, digital products, merchandise, and supplier sourcing.</p>
+        <div class="grid">
+          <div class="card">
+            <h3>Store Builder</h3>
+            <p>Inventory, localized pricing, and sales analytics.</p>
+          </div>
+          <div class="card">
+            <h3>In-Stream Commerce</h3>
+            <p>Pin products live and convert viewers to buyers instantly.</p>
+          </div>
+        </div>
+      </article>
+
+      <article id="wallet" class="screen">
+        <h2>Wallet & Finance</h2>
+        <p>Multi-currency wallet, P2P payments, secure withdrawal, and fraud controls.</p>
+        <div class="grid">
+          <div class="card">
+            <h3>Creator Earnings</h3>
+            <p>Gifts, commerce revenue, and learning income in one dashboard.</p>
+          </div>
+          <div class="card">
+            <h3>KYC + Risk Engine</h3>
+            <p>Identity checks and anomaly detection for safe transactions.</p>
+          </div>
+        </div>
+      </article>
+
+      <article id="learn" class="screen">
+        <h2>Learning Hub</h2>
+        <p>Structured courses, tutorials, and creator-led skill programs.</p>
+        <div class="grid">
+          <div class="card">
+            <h3>Course Tracks</h3>
+            <p>Beginner to advanced pathways with certificates.</p>
+          </div>
+          <div class="card">
+            <h3>Creator Education Monetization</h3>
+            <p>Paid course bundles and community classes.</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <aside class="panel mimi">
+      <h2>Mimi Assistant</h2>
+      <p class="muted">Available on every screen via voice, text, or icon tap.</p>
+      <label for="mimiInput">Type a command</label>
+      <input id="mimiInput" placeholder='e.g. "Start a live in Arabic"' />
+      <button id="runCommand">Run Command</button>
+      <pre id="mimiOutput">Mimi is ready.</pre>
+    </aside>
+  </main>
+
+  <footer class="footer">
+    <small>
+      Prototype only. Full product details are in OMNILIFE_PRODUCT_SPEC.md.
+    </small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
