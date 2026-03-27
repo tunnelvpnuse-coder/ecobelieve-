@@ -50,6 +50,25 @@ npm run dev
 npm run build
 ```
 
+## Netlify deploy
+
+This repository includes a root `netlify.toml` configured for the frontend:
+
+- Base directory: `frontend`
+- Build command: `npm run build`
+- Publish directory: `dist`
+- SPA redirect enabled (`/* -> /index.html`)
+
+Set this environment variable in Netlify:
+
+- `VITE_API_BASE_URL` = your deployed backend URL
+
+Example:
+
+```bash
+VITE_API_BASE_URL=https://your-backend-domain.com
+```
+
 ## Notes
 
 - This frontend is an MVP dashboard to exercise core backend endpoints quickly.
