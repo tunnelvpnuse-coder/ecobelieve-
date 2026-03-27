@@ -37,6 +37,30 @@ Open API docs:
 - Swagger UI: `http://127.0.0.1:8000/docs`
 - ReDoc: `http://127.0.0.1:8000/redoc`
 
+## Frontend app
+
+A React + TypeScript frontend is available in `frontend/` and integrates with this API.
+
+### Run frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Default frontend URL: `http://127.0.0.1:5173`
+
+### Configure backend URL
+
+Set the API endpoint with:
+
+```bash
+VITE_API_BASE_URL=http://127.0.0.1:8000
+```
+
+You can place this in `frontend/.env.local`.
+
 ## Core API workflow
 
 1. Register users with roles (`supplier`, `vendor`, `buyer`, `admin`)
