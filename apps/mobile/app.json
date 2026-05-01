@@ -1,0 +1,31 @@
+{
+  "expo": {
+    "name": "Omni Life",
+    "slug": "omni-life",
+    "scheme": "omnilife",
+    "version": "0.0.1",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "app.omnilife.mobile"
+    },
+    "android": {
+      "package": "app.omnilife.mobile"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "react-native-vision-camera",
+        {
+          "cameraPermissionText": "$(PRODUCT_NAME) needs camera access for live stylized streaming.",
+          "microphonePermissionText": "$(PRODUCT_NAME) needs microphone access for your stream."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

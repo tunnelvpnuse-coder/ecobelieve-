@@ -1,0 +1,12 @@
+/** @type {import("jest").Config} */
+module.exports = {
+  preset: "ts-jest",
+  testEnvironment: "node",
+  roots: ["<rootDir>/src"],
+  testMatch: ["**/*.test.ts"],
+  testPathIgnorePatterns: ["/node_modules/", "/dist/"],
+  moduleNameMapper: {
+    "^@omni-life/db$": "<rootDir>/../../packages/db/client.ts",
+  },
+  setupFiles: ["<rootDir>/jest.setup.cjs"],
+};

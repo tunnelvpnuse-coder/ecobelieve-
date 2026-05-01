@@ -1,0 +1,12 @@
+{
+  "extends": "@omni-life/tsconfig/react-native.json",
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@omni-life/ui": ["../../packages/ui/src"],
+      "@omni-life/ui/*": ["../../packages/ui/src/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
+}

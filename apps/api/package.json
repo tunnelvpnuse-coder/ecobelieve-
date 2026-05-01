@@ -1,0 +1,30 @@
+{
+  "name": "@omni-life/api",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "lint": "eslint src",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@fastify/jwt": "^8.0.1",
+    "@omni-life/db": "workspace:*",
+    "@prisma/client": "^5.22.0",
+    "fastify": "^4.28.1",
+    "fastify-plugin": "^4.5.1"
+  },
+  "devDependencies": {
+    "@omni-life/eslint-config": "workspace:*",
+    "@omni-life/tsconfig": "workspace:*",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.2",
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
