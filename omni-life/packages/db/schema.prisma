@@ -1,0 +1,199 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  CREATOR
+  VIEWER
+  PARENT
+  ADMIN
+}
+
+enum StreamMode {
+  GO_OUT
+  STAY_IN
+  FAMILY_STUDIO
+}
+
+enum StreamStatus {
+  PENDING
+  LIVE
+  ENDED
+  FLAGGED
+  ARCHIVED
+}
+
+enum SafetyEventType {
+  CONTENT_FLAG
+  PARENTAL_OVERRIDE
+  AGE_GATE_BLOCK
+  MIMI_CAUTION
+  EMERGENCY_STOP
+  CONSENT_MISSING
+}
+
+enum SafetySeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum MimiMood {
+  HAPPY
+  CALM
+  ENCOURAGING
+  CURIOUS
+  CAUTIOUS
+}
+
+enum MimiSafetyStatus {
+  SAFE
+  CAUTION
+}
+
+model User {
+  id                  String    @id @default(cuid())
+  email               String    @unique
+  username            String    @unique
+  display_name        String
+  avatar_url          String?
+  role                UserRole  @default(CREATOR)
+  is_verified         Boolean   @default(false)
+  livekit_identity    String?   @unique
+  mimi_logs_enabled   Boolean   @default(true)
+  mimi_voice_enabled  Boolean   @default(true)
+  password_hash       String
+  refresh_tokens      String[]  @default([])
+  suspended_at        DateTime?
+  created_at          DateTime  @default(now())
+  updated_at          DateTime  @updatedAt
+
+  streams             Stream[]
+  kid_profiles        KidProfile[] @relation("ParentKidProfiles")
+  safety_events       SafetyEvent[]
+  resolved_events     SafetyEvent[] @relation("SafetyEventResolvedBy")
+  mimi_logs           MimiLog[]
+
+  @@index([role, created_at])
+  @@index([is_verified, created_at])
+}
+
+model KidProfile {
+  id                   String       @id @default(cuid())
+  display_name         String
+  avatar_url           String?
+  parent_id            String
+  date_of_birth        DateTime
+  parental_consent     Boolean      @default(false)
+  consent_timestamp    DateTime?
+  consent_ip           String?
+  max_stream_duration  Int          @default(30)
+  allowed_modes        StreamMode[] @default([FAMILY_STUDIO])
+  content_filter_level Int          @default(3)
+  created_at           DateTime     @default(now())
+  updated_at           DateTime     @updatedAt
+
+  parent               User          @relation("ParentKidProfiles", fields: [parent_id], references: [id], onDelete: Cascade)
+  streams              Stream[]
+  safety_events        SafetyEvent[]
+  mimi_logs            MimiLog[]
+
+  @@index([parent_id, created_at])
+  @@index([parental_consent, updated_at])
+  @@index([content_filter_level])
+}
+
+model Stream {
+  id               String       @id @default(cuid())
+  title            String
+  description      String?
+  thumbnail_url    String?
+  mode             StreamMode
+  status           StreamStatus @default(PENDING)
+  is_private       Boolean      @default(false)
+  livekit_room_id  String?
+  livekit_token    String?
+  user_id          String?
+  kid_profile_id   String?
+  viewer_count     Int          @default(0)
+  peak_viewers     Int          @default(0)
+  duration_seconds Int          @default(0)
+  tags             String[]     @default([])
+  geo_lat          Float?
+  geo_lng          Float?
+  geo_label        String?
+  is_family_safe   Boolean      @default(true)
+  safety_score     Float        @default(1)
+  started_at       DateTime?
+  ended_at         DateTime?
+  created_at       DateTime     @default(now())
+  updated_at       DateTime     @updatedAt
+
+  user             User?         @relation(fields: [user_id], references: [id], onDelete: SetNull)
+  kid_profile      KidProfile?   @relation(fields: [kid_profile_id], references: [id], onDelete: SetNull)
+  safety_events    SafetyEvent[]
+  mimi_logs        MimiLog[]
+
+  @@index([user_id, status])
+  @@index([kid_profile_id, status])
+  @@index([mode, status, created_at])
+  @@index([is_private, created_at])
+  @@index([started_at])
+}
+
+model SafetyEvent {
+  id               String          @id @default(cuid())
+  event_type       SafetyEventType
+  severity         SafetySeverity
+  description      String
+  metadata         Json?
+  resolved         Boolean         @default(false)
+  resolved_at      DateTime?
+  resolved_by      String?
+  stream_id        String?
+  user_id          String?
+  kid_profile_id   String?
+  created_at       DateTime        @default(now())
+
+  stream           Stream?      @relation(fields: [stream_id], references: [id], onDelete: SetNull)
+  user             User?        @relation(fields: [user_id], references: [id], onDelete: SetNull)
+  kid_profile      KidProfile?  @relation(fields: [kid_profile_id], references: [id], onDelete: SetNull)
+  resolved_by_user User?        @relation("SafetyEventResolvedBy", fields: [resolved_by], references: [id], onDelete: SetNull)
+
+  @@index([event_type, severity, created_at])
+  @@index([stream_id, created_at])
+  @@index([user_id, created_at])
+  @@index([kid_profile_id, created_at])
+  @@index([resolved, created_at])
+}
+
+model MimiLog {
+  id             String           @id @default(cuid())
+  trigger        String
+  prompt         String?
+  response_text  String
+  mood           MimiMood
+  should_speak   Boolean          @default(false)
+  safety_status  MimiSafetyStatus
+  latency_ms     Int
+  user_id        String?
+  kid_profile_id String?
+  stream_id      String?
+  created_at     DateTime         @default(now())
+
+  user           User?       @relation(fields: [user_id], references: [id], onDelete: SetNull)
+  kid_profile    KidProfile? @relation(fields: [kid_profile_id], references: [id], onDelete: SetNull)
+  stream         Stream?     @relation(fields: [stream_id], references: [id], onDelete: SetNull)
+
+  @@index([user_id, created_at])
+  @@index([kid_profile_id, created_at])
+  @@index([stream_id, created_at])
+  @@index([mood, created_at])
+  @@index([safety_status, created_at])
+}
